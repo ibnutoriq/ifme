@@ -41,6 +41,7 @@ export const InputLabel = (props: Props) => {
   const {
     error, label, required, info, id,
   } = props;
+  if (!label) return null;
   return (
     <div className={`${globalCss.gridRowSpaceBetween} ${css.label}`}>
       <div>

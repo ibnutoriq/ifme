@@ -6,8 +6,20 @@ import { InputSubmit } from './InputSubmit';
 import { InputCheckbox } from './InputCheckbox';
 import { InputCheckboxGroup } from './InputCheckboxGroup';
 import { InputSelect } from './InputSelect';
-import { InputDefault } from './InputDefault';
+import { InputDefault, REQUIRES_DEFAULT } from './InputDefault';
 import css from './Input.scss';
+
+const TYPES = [
+  'text',
+  'textarea',
+  'submit',
+  'checkbox',
+  'number',
+  'time',
+  'date',
+  'select',
+  'checkboxGroup',
+];
 
 const REQUIRES_LABEL = [
   'textarea',
@@ -18,8 +30,6 @@ const REQUIRES_LABEL = [
   'select',
   'checkboxGroup',
 ];
-
-const REQUIRES_DEFAULT = ['text', 'number', 'time', 'date'];
 
 export type Option = {
   value: any,
@@ -195,7 +205,6 @@ export class Input extends React.Component<Props, State> {
     const {
       options, name, id, value, onChange,
     } = this.props;
-    if (!options) return null;
     return (
       <InputSelect
         name={name}
@@ -212,22 +221,20 @@ export class Input extends React.Component<Props, State> {
       label, info, required, id,
     } = this.props;
     const { error } = this.state;
-    if (label || info || required || error) {
-      return (
-        <InputLabel
-          label={label}
-          required={required}
-          info={info}
-          id={id}
-          error={error}
-        />
-      );
-    }
-    return null;
+    return (
+      <InputLabel
+        label={label}
+        required={required}
+        info={info}
+        id={id}
+        error={error}
+      />
+    );
   };
 
   render() {
     const { type, dark, large } = this.props;
+    if (!TYPES.includes(type)) return null;
     return (
       <div className={`${dark ? css.dark : ''} ${large ? css.large : ''}`}>
         {REQUIRES_LABEL.includes(type) && this.displayLabel()}

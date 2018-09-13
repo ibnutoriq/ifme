@@ -25,6 +25,7 @@ function getSpecs(specList) {
     return specList.split(',');
   } else {
     return [
+      './node_modules/phantomjs-polyfill-includes/includes-polyfill.js',
       { pattern: 'app/**/*.spec.js', watched: true },
       { pattern: 'app/**/*.spec.jsx', watched: true },
     ];

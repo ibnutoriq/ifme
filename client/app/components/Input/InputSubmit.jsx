@@ -10,25 +10,31 @@ export type Props = {
   onClick?: Function,
 };
 
+const buttonClassName = (large: ?boolean, dark: ?boolean) => {
+  if (large && !dark) {
+    return globalCss.buttonGhostL;
+  }
+  if (large && dark) {
+    return globalCss.buttonDarkL;
+  }
+  if (dark) {
+    return globalCss.buttonDarkM;
+  }
+  return globalCss.buttonGhostM;
+};
+
 export const InputSubmit = (props: Props) => {
   const {
     id, large, dark, onClick, value,
   } = props;
-  let buttonClassName = globalCss.buttonGhostM;
-  if (large && !dark) {
-    buttonClassName = globalCss.buttonGhostL;
-  } else if (large && dark) {
-    buttonClassName = globalCss.buttonDarkL;
-  } else if (dark) {
-    buttonClassName = globalCss.buttonDarkM;
-  }
+  if (!value) return null;
   return (
     <input
       id={id}
       type="submit"
       name="commit"
       value={value}
-      className={buttonClassName}
+      className={buttonClassName(large, dark)}
       onClick={onClick}
     />
   );

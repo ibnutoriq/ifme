@@ -8,7 +8,7 @@ export type Props = {
   id: string,
   name?: string,
   value?: any,
-  options: Option[],
+  options?: Option[],
   onChange?: Function,
 };
 
@@ -33,6 +33,7 @@ export class InputSelect extends React.Component<Props, State> {
   render() {
     const { id, name, options } = this.props;
     const { value } = this.state;
+    if (!options) return null;
     return (
       <div className={css.select}>
         <select id={id} name={name} value={value} onChange={this.toggleValue}>
